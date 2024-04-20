@@ -359,12 +359,16 @@ public:
         {
             while (lexemas[i] != ";")
             {
-                //std::cout << lexemas[i] << ' ';
-                std::cout << lexes[i] << '\t';
+                std::cout << lexemas[i] << ' ';
                 i++;
             }
             std::cout << lexemas[i] << std::endl;
             i++;
+        }
+
+        std::cout << std::endl << "Token method: " << std::endl;
+        for (auto l : lexes) {
+            std::cout << l << '\t';
         }
     }
 };
