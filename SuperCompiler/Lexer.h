@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -6,7 +6,7 @@
 class Token {
 public:
     std::string type;
-    Token(std::string t) : type{t} {}
+    Token(std::string t) : type{ t } {}
     virtual std::ostream& print(std::ostream& os) const {
         os << this->type;
         return os;
@@ -129,72 +129,72 @@ private:
         case 'L':
         case 'M':
         case 'N':
-        case 'а':
-        case 'б':
-        case 'в':
-        case 'г':
-        case 'д':
-        case 'е':
-        case 'ё':
-        case 'ж':
-        case 'з':
-        case 'и':
-        case 'й':
-        case 'к':
-        case 'л':
-        case 'м':
-        case 'н':
-        case 'о':
-        case 'п':
-        case 'р':
-        case 'с':
-        case 'т':
-        case 'у':
-        case 'ф':
-        case 'х':
-        case 'ц':
-        case 'ч':
-        case 'ш':
-        case 'щ':
-        case 'ъ':
-        case 'ы':
-        case 'ь':
-        case 'э':
-        case 'ю':
-        case 'я':
-        case 'А':
-        case 'Б':
-        case 'В':
-        case 'Г':
-        case 'Д':
-        case 'Е':
-        case 'Ё':
-        case 'Ж':
-        case 'З':
-        case 'И':
-        case 'Й':
-        case 'К':
-        case 'Л':
-        case 'М':
-        case 'Н':
-        case 'О':
-        case 'П':
-        case 'Р':
-        case 'С':
-        case 'Т':
-        case 'У':
-        case 'Ф':
-        case 'Х':
-        case 'Ц':
-        case 'Ч':
-        case 'Ш':
-        case 'Щ':
-        case 'Ъ':
-        case 'Ы':
-        case 'Ь':
-        case 'Э':
-        case 'Ю':
-        case 'Я':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
+        case '�':
             return true;
         default:
             return false;
@@ -380,25 +380,7 @@ public:
 
         std::cout << std::endl << "Token method: " << std::endl;
         for (auto l : lexes) {
-            std::cout << *l << '\t';
+            std::cout << *l << '\ ';
         }
     }
 };
-/*
-int main() {
-    // Чтение кода из файла, чтобы во время тестирования не нужно было перекомпилировать
-    setlocale(LC_ALL, "Russian");
-    bool key;
-    std::string instring;
-    std::fstream infile;
-    infile.open("input2.txt");
-    if (infile.is_open()) {
-        for (std::string line; getline(infile, line);) {
-            instring += line;
-        }
-        infile.close();
-    }
-
-    Lexer lex(&instring[0]);
-    return 0;
-}*/

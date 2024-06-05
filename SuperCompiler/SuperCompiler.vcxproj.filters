@@ -18,8 +18,19 @@
     <ClCompile Include="SuperCompiler.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lexer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

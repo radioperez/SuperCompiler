@@ -127,10 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Parser.h" />
     <ClCompile Include="SuperCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lexer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
