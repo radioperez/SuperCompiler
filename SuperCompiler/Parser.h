@@ -4,6 +4,7 @@
 	В процессе генерации:
 	хранит два стака: Магазин и Генератор, плюс один вектор ОПС
 */
+#pragma once
 #include <vector>
 #include <stack>
 #include <string>
@@ -22,13 +23,19 @@ class Parser {
 public:
 	std::string ops;
 	Parser(std::vector<Token*> stroka) {
-		std::vector<Token*> strokacopy;
+		std::stack<Token*> strokacopy;
+		for (int i = stroka.size() - 1; i >= 0; i--) {
+			strokacopy.push(stroka[i]);
+		}
 		std::stack<Token*> magazine;
 		std::stack<Token*> generator;
 
-		ops = "LOL";
+		analyse(strokacopy);
 	}
 private:
-	
-
+	void analyse(std::stack<Token*> stroka) {
+		for (Token* token = stroka.top(); stroka.empty(); stroka.pop()) {
+			ops = token->type;
+		}
+	}
 };

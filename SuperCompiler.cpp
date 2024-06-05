@@ -1,9 +1,59 @@
-#pragma once
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Token.h"
+
+class Token {
+public:
+    std::string type;
+    Token(std::string t) : type{t} {}
+    virtual std::ostream& print(std::ostream& os) const {
+        os << this->type;
+        return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Token& tk) {
+        return tk.print(os);
+    }
+};
+
+class Word : public Token {
+    std::string value;
+public:
+    Word(std::string val) : Token("WORD"), value{ val } {}
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->value;
+        return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Word& w) {
+        return w.print(os);
+    }
+};
+
+class Number : public Token {
+    int value;
+public:
+    Number(int val) : Token("NUM"), value{ val } {}
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->value;
+        return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Number& n) {
+        return n.print(os);
+    }
+};
+
+class FractialNumber : public Token {
+    float value;
+public:
+    FractialNumber(float val) : Token("FRAC"), value{ val } {}
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->value;
+        return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const FractialNumber& fn) {
+        return fn.print(os);
+    }
+};
 
 class Lexer {
 private:
@@ -79,72 +129,72 @@ private:
         case 'L':
         case 'M':
         case 'N':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
-        case '�':
+        case 'а':
+        case 'б':
+        case 'в':
+        case 'г':
+        case 'д':
+        case 'е':
+        case 'ё':
+        case 'ж':
+        case 'з':
+        case 'и':
+        case 'й':
+        case 'к':
+        case 'л':
+        case 'м':
+        case 'н':
+        case 'о':
+        case 'п':
+        case 'р':
+        case 'с':
+        case 'т':
+        case 'у':
+        case 'ф':
+        case 'х':
+        case 'ц':
+        case 'ч':
+        case 'ш':
+        case 'щ':
+        case 'ъ':
+        case 'ы':
+        case 'ь':
+        case 'э':
+        case 'ю':
+        case 'я':
+        case 'А':
+        case 'Б':
+        case 'В':
+        case 'Г':
+        case 'Д':
+        case 'Е':
+        case 'Ё':
+        case 'Ж':
+        case 'З':
+        case 'И':
+        case 'Й':
+        case 'К':
+        case 'Л':
+        case 'М':
+        case 'Н':
+        case 'О':
+        case 'П':
+        case 'Р':
+        case 'С':
+        case 'Т':
+        case 'У':
+        case 'Ф':
+        case 'Х':
+        case 'Ц':
+        case 'Ч':
+        case 'Ш':
+        case 'Щ':
+        case 'Ъ':
+        case 'Ы':
+        case 'Ь':
+        case 'Э':
+        case 'Ю':
+        case 'Я':
             return true;
         default:
             return false;
@@ -275,7 +325,6 @@ private:
             //std::cout << "Unknown lexema: " << lexema << std::endl;
             return false;
         }
-        else return false;
     }
     bool analyse() {
         bool key = true;
@@ -309,21 +358,13 @@ public:
         lexes.clear();
         bool key = true;
         key = analyse();
-        if (key) print_tokens();
+        if (key) get_lexemas();
 
     }
     const char* m_begin = nullptr;
-    char peek() const { return *m_begin; }
+    char peek() { return *m_begin; }
     char get() { return *m_begin++; }
-    std::vector<Token*> get_lexemas() {
-        return lexes;
-    }
-    void print_tokens() {
-        for (auto token : lexes) {
-            std::cout << *token << '\ ';
-        }
-    }
-    void print_lexemas() {
+    void get_lexemas() {
         int n = lexemas.size();
         int i = 0;
         while (i != n)
@@ -339,7 +380,25 @@ public:
 
         std::cout << std::endl << "Token method: " << std::endl;
         for (auto l : lexes) {
-            std::cout << *l << '\ ';
+            std::cout << *l << '\t';
         }
     }
 };
+/*
+int main() {
+    // Чтение кода из файла, чтобы во время тестирования не нужно было перекомпилировать
+    setlocale(LC_ALL, "Russian");
+    bool key;
+    std::string instring;
+    std::fstream infile;
+    infile.open("input2.txt");
+    if (infile.is_open()) {
+        for (std::string line; getline(infile, line);) {
+            instring += line;
+        }
+        infile.close();
+    }
+
+    Lexer lex(&instring[0]);
+    return 0;
+}*/
