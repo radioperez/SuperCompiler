@@ -7,9 +7,12 @@ class Token {
 public:
     std::string type;
     Token(std::string t) : type{t} {}
-    friend std::ostream& operator<<(std::ostream& os, const Token& tk) {
-        os << tk.type;
+    virtual std::ostream& print(std::ostream& os) const {
+        os << this->type;
         return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Token& tk) {
+        return tk.print(os);
     }
 };
 
@@ -17,9 +20,12 @@ class Word : public Token {
     std::string value;
 public:
     Word(std::string val) : Token("WORD"), value{ val } {}
-    friend std::ostream& operator<<(std::ostream& os, const Word& tk) {
-        os << static_cast<const Token&>(tk) << '_' << tk.value;
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->value;
         return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Word& w) {
+        return w.print(os);
     }
 };
 
@@ -27,9 +33,12 @@ class Number : public Token {
     int value;
 public:
     Number(int val) : Token("NUM"), value{ val } {}
-    friend std::ostream& operator<<(std::ostream& os, const Number& tk) {
-        os << tk.type << '_' << tk.value;
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->value;
         return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Number& n) {
+        return n.print(os);
     }
 };
 
@@ -46,7 +55,7 @@ public:
 class Lexer {
 private:
     std::vector <std::string> lexemas;
-    std::vector<Token> lexes;
+    std::vector<Token*> lexes;
     bool is_space(char c) {
         switch (c) {
         case ' ':
@@ -235,7 +244,7 @@ private:
             else {
                 frac += number;
                 std::cout << "Got fractial number: " << frac << std::endl;
-                lexes.push_back(FractialNumber(frac));
+                lexes.push_back(new FractialNumber(frac));
                 lexemas.push_back("NUM_" + std::to_string(frac));
                 return key;
             }
@@ -247,7 +256,7 @@ private:
         }
 
         std::cout << "Got number: " << number << std::endl;
-        lexes.push_back(Number(number));
+        lexes.push_back(new Number(number));
         lexemas.push_back("NUM_" + std::to_string(number));
         return key;
 
@@ -272,7 +281,7 @@ private:
             word += get();
         }
         std::cout << "Got word: " << word << std::endl;
-        lexes.push_back(Word(word));
+        lexes.push_back(new Word(word));
         lexemas.push_back("WRD_" + word);
     }
     void comment() {
@@ -289,7 +298,7 @@ private:
         std::string lexema;
         lexema += get();
         std::cout << "Got lexema: " << lexema << std::endl;
-        lexes.push_back(Token(lexema));
+        lexes.push_back(new Token(lexema));
         lexemas.push_back(lexema);
     }
     bool multi_char_lexema() {
@@ -300,13 +309,13 @@ private:
             lexema += get();
             std::cout << "Got lexema: " << lexema << std::endl;
             lexemas.push_back(lexema);
-            lexes.push_back(Token(lexema));
+            lexes.push_back(new Token(lexema));
             return true;
         }
         else if ((firstchar == '<' || firstchar == '>') && (peek() != '=') && (is_letter(peek()) || is_number(peek()) || is_space(peek()) || peek() == '(')) {
             std::cout << "Got lexema: " << lexema << std::endl;
             lexemas.push_back(lexema);
-            lexes.push_back(Token(lexema));
+            lexes.push_back(new Token(lexema));
             return true;
         }
         else if (((firstchar == '!') || (firstchar == ':')) && (peek() != '=')) {
@@ -327,7 +336,7 @@ private:
                 std::string lexema;
                 lexema += peek();
                 lexemas.push_back(lexema);
-                lexes.push_back(Token(lexema));
+                lexes.push_back(new Token(lexema));
                 get();
             }
             else {
@@ -368,7 +377,7 @@ public:
 
         std::cout << std::endl << "Token method: " << std::endl;
         for (auto l : lexes) {
-            std::cout << l << '\t';
+            std::cout << *l << '\t';
         }
     }
 };
