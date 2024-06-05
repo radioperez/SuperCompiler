@@ -234,6 +234,7 @@ private:
             word += get();
         }
         std::cout << "Got word: " << word << std::endl;
+        /*TODO проверка на служебные слова*/
         lexes.push_back(new Word(word));
         lexemas.push_back("WRD_" + word);
     }

@@ -5,6 +5,7 @@
 class Token {
 public:
     std::string type;
+    int index;
     Token(std::string t) : type{ t } {}
     virtual std::ostream& print(std::ostream& os) const {
         os << this->type;
