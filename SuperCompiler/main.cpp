@@ -4,11 +4,10 @@
 #include "Lexer.h"
 #include "Parser.h"
 
-
 int main() {
     // Чтение кода из файла, чтобы во время тестирования не нужно было перекомпилировать
     setlocale(LC_ALL, "Russian");
-    bool key;
+    bool key = false;
     std::string instring;
     std::fstream infile;
     infile.open("input2.txt");
@@ -20,5 +19,6 @@ int main() {
     }
 
     Lexer lex(&instring[0]);
+    Parser pars(lex.get_lexemas());
     return 0;
 }

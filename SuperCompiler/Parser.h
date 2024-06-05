@@ -4,6 +4,11 @@
 	В процессе генерации:
 	хранит два стака: Магазин и Генератор, плюс один вектор ОПС
 */
+#include <vector>
+#include <stack>
+#include <string>
+#include <iostream>
+#include "Token.h"
 
 const int Matrix[12][25] = {
 	/*  цел  вещ  Word  Num/Frac  мас  если  иначе  пока  :=  <  <=  >  >=  =  !=  [  ]  (  )  +  -  *  /  ;  T */
@@ -11,4 +16,19 @@ const int Matrix[12][25] = {
 		{},
 		{},
 		{},
+};
+
+class Parser {
+public:
+	std::string ops;
+	Parser(std::vector<Token*> stroka) {
+		std::vector<Token*> strokacopy;
+		std::stack<Token*> magazine;
+		std::stack<Token*> generator;
+
+		ops = "LOL";
+	}
+private:
+	
+
 };
