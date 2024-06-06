@@ -30,12 +30,14 @@ const std::string Matrix[12][25] = {
 
 class Parser {
 public:
+	int position;
 	std::string ops;
 	std::stack<std::string> magazine;
 	std::stack<std::string> generator;
 	Parser(std::vector<Token*> stroka) {
+		position = 0;
 		std::stack<Token*> strokacopy;
-		for (int i = stroka.size() - 1; i >= 0; i--) {
+		for (int i = 10 - 1; i >= 0; i--) {
 			strokacopy.push(stroka[i]);
 		}
 
@@ -43,9 +45,9 @@ public:
 	}
 private:
 	void analyse(std::stack<Token*> stroka) {
-		for (Token* token = stroka.top(); stroka.empty(); stroka.pop()) {
-			ops = token->type;
-		}
+		Token top = *stroka.top();
+
+		command(Matrix[position][top.index]);
 	}
 	void command(std::string directive) {
 		if (directive == "Sцел") {
