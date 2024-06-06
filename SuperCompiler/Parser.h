@@ -12,11 +12,13 @@
 #include "Token.h"
 
 const std::string Matrix[12][25] = {
-	/*  цел							вещ							Word  Num/Frac  мас  если  иначе  пока  :=  <  <=  >  >=  =  !=  [  ]  (  )  +  -  *  /  ;  T */
+	/*  цел		вещ		Word    Num/Frac мас   если     иначе  пока     :=     <      <=     >      >=     =      !=     [      ]      (      )      +      -      *      /      ;      T    */
 	{   "Sцел",	"Sвещ", "Sимя", "err", "Sмас", "Sесли", "err", "Sпока", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
-		{},
-		{},
-		{},
+	{   "lam",  "lam",  "lam",  "lam", "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "S0",  "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
+	{   "err",  "err",  "err",  "err", "err",  "err",   "err", "err",   "S1:=","err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "S1;", "err"},
+	{   "lam",  "lam",  "lam",  "lam", "lam",  "lam",   "S2",  "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
+	{	"S3цел","S3вещ","err",  "err", "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
+	{},
 };
 
 class Parser {
@@ -68,11 +70,11 @@ private:
 			generator.push("1"); generator.push("_blank_"); generator.push("_blank_");
 			generator.push("_blank_"); generator.push("4");
 		}
-		else if (directive == "lambda") {
-			magazine.push("lambda");
+		else if (directive == "lam") {
+			magazine.push("lam");
 			generator.pop();
 		}
-		else if (directive == "S0[") {
+		else if (directive == "S0") {
 			magazine.push("]"); magazine.push("В"); magazine.push("[");
 			generator.push("i"); generator.push("_blank_"); generator.push("_blank_");
 		}
