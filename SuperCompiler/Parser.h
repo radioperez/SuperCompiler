@@ -12,13 +12,19 @@
 #include "Token.h"
 
 const std::string Matrix[12][25] = {
-	/*  цел		вещ		Word    Num/Frac мас   если     иначе  пока     :=     <      <=     >      >=     =      !=     [      ]      (      )      +      -      *      /      ;      T    */
-	{   "Sцел",	"Sвещ", "Sимя", "err", "Sмас", "Sесли", "err", "Sпока", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
-	{   "lam",  "lam",  "lam",  "lam", "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "S0",  "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
-	{   "err",  "err",  "err",  "err", "err",  "err",   "err", "err",   "S1:=","err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "S1;", "err"},
-	{   "lam",  "lam",  "lam",  "lam", "lam",  "lam",   "S2",  "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
-	{	"S3цел","S3вещ","err",  "err", "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
-	{},
+	/*  цел		вещ		Word    Num/Frac мас     если     иначе  пока     :=     <      <=     >      >=     =      !=     [      ]      (      )      +      -      *      /      ;      T    */
+	{   "Sцел",	"Sвещ", "Sимя", "err",   "Sмас", "Sесли", "err", "Sпока", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
+	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "S0",  "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
+	{   "err",  "err",  "err",  "err",   "err",  "err",   "err", "err",   "S1:=","err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "S1;", "err"},
+	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "S2",  "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
+	{	"S3цел","S3вещ","err",  "err",   "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
+	{   "err",  "err",  "Уимя", "Узнач", "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "У(",  "err", "err", "err", "err", "err", "err", "err"},
+	{   "err",  "err",  "err",  "err",   "err",  "err",   "err", "err",   "err", "<",   "<=",  ">",   ">=",  "=",   "!=",  "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
+	{   "err",  "err",  "Вимя", "Взнач", "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "В(",  "err", "err", "err", "err", "err", "err", "err"},
+	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "+",   "-",   "lam", "lam", "lam", "lam"},
+	{   "err",  "err",  "Тимя", "Тзнач", "err",  "err",   "err", "err",   "err", "err", "err", "err", "err", "err", "err", "err", "err", "Т(",  "err", "err", "err", "err", "err", "err", "err"},
+	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "*",   "/",   "lam", "lam"},
+	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "И[",  "lam", "lam", "lam", "lam", "lam", "*",   "/",   "lam", "lam"}
 };
 
 class Parser {
