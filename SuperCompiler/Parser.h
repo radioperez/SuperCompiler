@@ -12,6 +12,7 @@
 #include "Token.h"
 
 const std::string Matrix[12][25] = {
+	/* РУССКАЯ Т, РУССКАЯ В */
 	/*  цел		вещ		Word    Num/Frac мас     если     иначе  пока     :=     <      <=     >      >=     =      !=     [      ]      (      )      +      -      *      /      ;      T    */
 	{   "Sцел",	"Sвещ", "Sимя", "err",   "Sмас", "Sесли", "err", "Sпока", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
 	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "S0",  "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
@@ -103,8 +104,102 @@ private:
 			generator.push("имя"); generator.push("11");
 		}
 		else if (directive == "S3вещ") {
-			magazine.push("S3"); magazine.push("мас");
+			magazine.push("S1"); magazine.push("]"); magazine.push("В"); magazine.push("["); 
+			magazine.push("имя"); magazine.push("вещ");
+			generator.push("_blank_"); generator.push("i"); generator.push("_blank_"); generator.push("_blank_");
+			generator.push("имя"); generator.push("21");
+		}
+		else if (directive == "Уимя") {
+			magazine.push("В"); magazine.push("Логическое"); magazine.push("U"); magazine.push("V");
+			magazine.push("Индекс"); magazine.push("имя");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_");
+			generator.push("_blank_"); generator.push("имя");
+		}
+		else if (directive == "Узнач") {
+			magazine.push("В"); magazine.push("Логическое"); magazine.push("U"); magazine.push("V");
+			magazine.push("Индекс"); magazine.push("значение");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_");
+			generator.push("_blank_"); generator.push("значение");
+		}
+		else if (directive == "У(") {
+			magazine.push("В"); magazine.push("Логическое"); magazine.push("U"); magazine.push("V");
+			magazine.push(")"); magazine.push("В"); magazine.push("(");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "<") {
+			magazine.push("<");
+			generator.push("<");
+		}
+		else if (directive == "<=") {
+			magazine.push("<=");
+			generator.push("<=");
+		}
+		else if (directive == ">") {
+			magazine.push(">");
+			generator.push(">=");
+		}
+		else if (directive == ">=") {
+			magazine.push(">=");
+			generator.push(">=");
+		}
+		else if (directive == "=") {
+			magazine.push("=");
+			generator.push("=");
+		}
+		else if (directive == "!=") {
+			magazine.push("!=");
+			generator.push("!=");
+		}
+		else if (directive == "Вимя") {
+			magazine.push("U"); magazine.push("V"); magazine.push("Индекс"); magazine.push("имя");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); generator.push("имя");
+		}
+		else if (directive == "Взнач") {
+			magazine.push("U"); magazine.push("V"); magazine.push("значение");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("значение");
+		}
+		else if (directive == "В(") {
+			magazine.push("U"); magazine.push("V"); magazine.push(")"); magazine.push("В"); magazine.push("(");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); 
 			generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "+") {
+			/* РУССКАЯ Т */
+			magazine.push("U"); magazine.push("T"); magazine.push("+");
+			generator.push("+"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "-") {
+			/* РУССКАЯ Т */
+			magazine.push("U"); magazine.push("T"); magazine.push("-");
+			generator.push("-"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "Тимя") {
+			/* РУССКАЯ Т */
+			magazine.push("V"); magazine.push("Индекс"); magazine.push("имя");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("имя");
+		}
+		else if (directive == "Тзнач") {
+			/* РУССКАЯ Т */
+			magazine.push("V"); magazine.push("значение"); 
+			generator.push("_blank_"); generator.push("значение");
+		}
+		else if (directive == "Т(") {
+			/* РУССКАЯ Т */
+			magazine.push("V"); magazine.push(")"); magazine.push("В"); magazine.push("(");
+			generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "*") {
+			magazine.push("V"); magazine.push("Т"); magazine.push("*");
+			generator.push("*"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "/") {
+			magazine.push("V"); magazine.push("Т"); magazine.push("/");
+			generator.push("/"); generator.push("_blank_"); generator.push("_blank_");
+		}
+		else if (directive == "И[") {
+			magazine.push("]"); magazine.push("В"); magazine.push("[");
+			generator.push("i"); generator.push("_blank_"); generator.push("_blank_");
 		}
 	}
 };
