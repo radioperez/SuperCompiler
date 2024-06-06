@@ -31,6 +31,8 @@ public:
         else if (t == "*") index = 21;
         else if (t == "/") index = 22;
         else if (t == ";") index = 23;
+        else if (t == "{") index = 25;
+        else if (t == "}") index = 26;
         else index = 999;
     }
     virtual std::ostream& print(std::ostream& os) const {
