@@ -14,7 +14,7 @@
 const std::string Matrix[12][25] = {
 	/* РУССКАЯ Т, РУССКАЯ В */
 	/*  цел		вещ		Word    Num/Frac мас     если     иначе  пока     :=     <      <=     >      >=     =      !=     [      ]      (      )      +      -      *      /      ;      T    */
-	{   "Sцел",	"Sвещ", "Sимя", "err",   "Sмас", "Sесли", "err", "Sпока", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err"},
+	{   "Sцел",	"Sвещ", "Sимя", "lam",   "Sмас", "Sесли", "lam", "Sпока", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
 	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "lam", "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "S0",  "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
 	{   "err",  "err",  "err",  "err",   "err",  "err",   "err", "err",   "S1:=","err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "err", "S1;", "err"},
 	{   "lam",  "lam",  "lam",  "lam",   "lam",  "lam",   "S2",  "lam",   "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam", "lam"},
@@ -80,7 +80,7 @@ private:
 			generator.push("_blank_"); generator.push("4");
 		}
 		else if (directive == "lam") {
-			magazine.push("lam");
+			magazine.pop();
 			generator.pop();
 		}
 		else if (directive == "S0") {
