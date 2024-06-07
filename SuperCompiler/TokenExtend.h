@@ -5,9 +5,7 @@
 
 /* TOKEN INDEXES
    цел 0, вещ 1, имя 2, значение 3, мас 4, если 5, иначе 6, пока 7, := 8, < 9, <= 10, > 11, >= 12,
-   = 13,  != 14, [ 15,  ] 16,       ( 17,  ) 18,   + 19,    - 20,   * 21, / 22,; 23,  терм 24
-
-   не участвуют в таблице: { 25, } 26
+   = 13,  != 14, [ 15,  ] 16,       ( 17,  ) 18,   + 19,    - 20,   * 21, / 22,; 23,  терм 24, { 25, } 26
 */
 
 class Token {
@@ -31,6 +29,7 @@ public:
         else if (t == "*") index = 21;
         else if (t == "/") index = 22;
         else if (t == ";") index = 23;
+        else if (t == "end") index = 24;
         else if (t == "{") index = 25;
         else if (t == "}") index = 26;
         else index = 999;
@@ -48,7 +47,21 @@ public:
 
 class NonTerm : public Token {
 public:
-    NonTerm(std::string nt) : Token(nt) {};
+    NonTerm(std::string nt) : Token(nt) {
+        if (nt == "S") index = 0;
+        else if (nt == "Тип") index = 1;
+        else if (nt == "S1") index = 2;
+        else if (nt == "S2") index = 3;
+        else if (nt == "Условие") index = 4;
+        else if (nt == "Логическое") index = 5;
+        else if (nt == "B") index = 6;
+        else if (nt == "U") index = 7;
+        else if (nt == "T") index = 8;
+        else if (nt == "V") index = 9;
+        else if (nt == "F") index = 10;
+        else if (nt == "Индекс") index = 11;
+        else index = 999;
+    };
     void exec(Token* tk);
 };
 
@@ -58,9 +71,24 @@ public:
     void exec(Token* tk);
 };
 
-class Word : public Token {
-    std::string value;
+class Mark : public Token {
 public:
+    int index;
+    Mark(int index_) : Token("m"), index(index_) {}
+    void exec(Token* tk);
+
+    std::ostream& print(std::ostream& os) const {
+        os << this->type << '_' << this->index;
+        return os;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Mark& m) {
+        return m.print(os);
+    }
+};
+
+class Word : public Token {
+public:
+    std::string value;
     Word(std::string val) : Token("WORD"), value{ val } {
         if (val == "цел") index = 0;
         else if (val == "вещ") index = 1;
@@ -81,9 +109,9 @@ public:
     }
 };
 
-class Number : public Token {
-    int value;
+class Number : public Token { 
 public:
+    int value;
     Number(int val) : Token("NUM"), value{ val } {
         index = 3;
     }
@@ -99,8 +127,8 @@ public:
 };
 
 class FractialNumber : public Token {
-    float value;
 public:
+    float value;
     FractialNumber(float val) : Token("FRAC"), value{ val } {
         index = 3;
     }

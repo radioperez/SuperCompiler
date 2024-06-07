@@ -128,16 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="input1.txt" />
     <Text Include="input2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ParserExtend.h" />
     <ClInclude Include="TokenExtend.h" />
-    <ClInclude Include="Parser1.h" />
-    <ClInclude Include="Token.h" />
     <ClInclude Include="Lexer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

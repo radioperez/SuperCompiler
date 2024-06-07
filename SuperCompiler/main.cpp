@@ -10,7 +10,7 @@ int main() {
     bool key = false;
     std::string instring;
     std::fstream infile;
-    infile.open("input2.txt");
+    infile.open("input1.txt");
     if (infile.is_open()) {
         for (std::string line; getline(infile, line);) {
             instring += line;
@@ -19,7 +19,11 @@ int main() {
     }
 
     Lexer lex(&instring[0]);
-    lex.get_lexemas()[0]->exec(new Token("1"));
     Parser pars(lex.get_lexemas());
+    std::vector<Token*> ops = pars.get_ops();
+    std::cout << std::endl;
+    for (auto el : ops) {
+        std::cout << *el;
+    }
     return 0;
 }
