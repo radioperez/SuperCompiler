@@ -5,7 +5,6 @@
 	В процессе генерации:
 	хранит два стака: Магазин и Генератор, плюс один вектор ОПС
 */
-#pragma once
 #include <vector>
 #include <stack>
 #include <string>

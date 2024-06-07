@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Token.h"
+#include "TokenExtend.h"
 
 class Lexer {
 private:
