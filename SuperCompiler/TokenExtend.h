@@ -101,7 +101,7 @@ public:
     void exec(Token* tk);
 
     std::ostream& print(std::ostream& os) const {
-        os << this->type << '_' << this->value;
+        os << this->value;
         return os;
     }
     friend std::ostream& operator<<(std::ostream& os, const Word& w) {
@@ -118,7 +118,7 @@ public:
     void exec(Token* tk);
 
     std::ostream& print(std::ostream& os) const {
-        os << this->type << '_' << this->value;
+        os << this->value;
         return os;
     }
     friend std::ostream& operator<<(std::ostream& os, const Number& n) {
@@ -135,7 +135,7 @@ public:
     void exec(Token* tk);
 
     std::ostream& print(std::ostream& os) const {
-        os << this->type << '_' << this->value;
+        os << this->value;
         return os;
     }
     friend std::ostream& operator<<(std::ostream& os, const FractialNumber& fn) {

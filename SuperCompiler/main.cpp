@@ -23,7 +23,7 @@ int main() {
     std::vector<Token*> ops = pars.get_ops();
     std::cout << std::endl;
     for (auto el : ops) {
-        std::cout << *el;
+        std::cout << *el << ' ';
     }
     return 0;
 }
