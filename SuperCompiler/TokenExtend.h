@@ -49,17 +49,18 @@ class NonTerm : public Token {
 public:
     NonTerm(std::string nt) : Token(nt) {
         if (nt == "S") index = 0;
-        else if (nt == "Тип") index = 1;
-        else if (nt == "S1") index = 2;
-        else if (nt == "S2") index = 3;
-        else if (nt == "Условие") index = 4;
-        else if (nt == "Логическое") index = 5;
-        else if (nt == "B") index = 6;
-        else if (nt == "U") index = 7;
-        else if (nt == "T") index = 8;
-        else if (nt == "V") index = 9;
-        else if (nt == "F") index = 10;
-        else if (nt == "Индекс") index = 11;
+        else if (nt == "Присваивание") index = 1;
+        else if (nt == "Тип") index = 2;
+        else if (nt == "S1") index = 3;
+        else if (nt == "S2") index = 4;
+        else if (nt == "Условие") index = 5;
+        else if (nt == "Логическое") index = 6;
+        else if (nt == "B") index = 7;
+        else if (nt == "U") index = 8;
+        else if (nt == "T") index = 9;
+        else if (nt == "V") index = 10;
+        else if (nt == "F") index = 11;
+        else if (nt == "Индекс") index = 12;
         else index = 999;
     };
     void exec(Token* tk);

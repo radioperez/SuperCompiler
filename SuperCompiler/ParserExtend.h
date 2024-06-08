@@ -1,5 +1,6 @@
 #pragma once
 #include "TokenExtend.h"
+#include "Tables.h"
 #include <string>
 #include <vector>
 #include <stack>
@@ -28,6 +29,14 @@ void Token::exec(Token* tk) {
 void Word::exec(Token* tk) {
 	if (tk == nullptr) {
 		OPS.push_back(this);
+		switch (TableMode) {
+		case 10:
+			INTS[this->value] = -1;
+			break;
+		case 20:
+			FLOATS[this->value] = -1;
+			break;
+		}
 	}
 	else if (this->type != tk->type) { std::cout << " " << this->type << "<>" << tk->type << " "; }
 	else if (this->index != tk->index) { std::cout << "Wrong words"; }
@@ -70,9 +79,10 @@ void FractialNumber::exec(Token* tk) {
 	}
 };
 
-int Matrix[12][27] = {
+int Matrix[13][27] = {
 /*   ц	в	имя	зн	м	е	и	п	:=	<	<=	>	>=	=	!=	[	]	(	)	+	-	*	/	;	end {  }*/
 	{1,	2,	3,	0,	4,	5,	0,	6,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,  0, 0},
+	{0, 0,  32, 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0, 0},
 	{7,	8,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1,	-1, -1,	-1,-1},
 	{0,	0,	0,	0,	0,	0,	0,	0,	9,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 	{0,	0,	0,	0,	0,	0,	10,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
@@ -104,24 +114,29 @@ void NonTerm::exec(Token* tk_) {
 			ParserGenerator.pop();
 			break;
 		case 1:
-			/* S -> цел имя S1; S*/
-			ParserMagazine.push(new NonTerm("S"));
-			ParserMagazine.push(new Token(";")); ParserMagazine.push(new NonTerm("S1"));
-			ParserMagazine.push(tk); ParserMagazine.push(new Word("цел"));
+			/* S -> цел Присваивание */
+			ParserMagazine.push(new NonTerm("Присваивание"));
+			ParserMagazine.push(new Word("цел"));
 
-			ParserGenerator.push(new Command("blank")); ParserGenerator.push(new Command("0"));
-			ParserGenerator.push(new Command("blank")); ParserGenerator.push(tk);
+			ParserGenerator.push(new Command("blank"));
+			ParserGenerator.push(new Command("blank"));
 			ParserGenerator.push(new Command("10"));
 			break;
 		case 2:
-			/* S -> вещ имя S1; S*/
-			ParserMagazine.push(new NonTerm("S"));
-			ParserMagazine.push(new Token(";")); ParserMagazine.push(new NonTerm("S1"));
-			ParserMagazine.push(tk); ParserMagazine.push(new Word("вещ"));
+			/* S -> вещ Присваивание*/
+			ParserMagazine.push(new NonTerm("Присваивание"));
+			ParserMagazine.push(new Word("вещ"));
+
+			ParserGenerator.push(new Command("blank"));
+			ParserGenerator.push(new Command("20"));
+			break;
+		case 32: 
+			/* Присваивание -> имя S1; S */
+			ParserMagazine.push(new NonTerm("S")); ParserMagazine.push(new Token(";"));
+			ParserMagazine.push(new NonTerm("S1")); ParserMagazine.push(tk);
 
 			ParserGenerator.push(new Command("blank")); ParserGenerator.push(new Command("0"));
 			ParserGenerator.push(new Command("blank")); ParserGenerator.push(tk);
-			ParserGenerator.push(new Command("20"));
 			break;
 		case 3:
 			/* S -> имя Индекс := B; S */
@@ -184,7 +199,7 @@ void NonTerm::exec(Token* tk_) {
 		case 9:
 			/* S1 -> := B */
 			ParserMagazine.push(new NonTerm("B")); ParserMagazine.push(new Token(":="));
-			ParserGenerator.push(new Command(":=")); ParserGenerator.push(new Command("blank"));
+			ParserGenerator.push(new Token(":=")); ParserGenerator.push(new Command("blank"));
 			break;
 		case 10:
 			/* S2 -> иначе { S } */
@@ -372,8 +387,7 @@ void NonTerm::exec(Token* tk_) {
 void Command::exec(Token* tk) {
 	if (this->type == "blank") {}
 	else if (this->type == "0") {
-		/* Проверка имени против служебных слов */
-		
+		/* Проверка на существования переменной с таким именем */
 	}
 	else if (this->type == "1") {
 		/* В магазин меток записывается k, в опс записывается пустое место и jf */
@@ -404,10 +418,17 @@ void Command::exec(Token* tk) {
 	}
 	else if (this->type == "10") {
 		/* Режим заполнения таблицы целочисленных переменных */
+		TableMode = 10;
 	}
-	else if (this->type == "11") std::cout << "11";
-	else if (this->type == "20") std::cout << "20";
-	else if (this->type == "21") std::cout << "21";
+	else if (this->type == "11") {
+		TableMode = 11;
+	}
+	else if (this->type == "20") {
+		TableMode = 20;
+	}
+	else if (this->type == "21") {
+		TableMode = 21;
+	}
 };
 
 void Mark::exec(Token* tk) {};
@@ -423,7 +444,7 @@ public:
 			Token* mgz = ParserMagazine.top();
 			ParserMagazine.pop();
 			Token* str = ParserString.top();
-			std::cout << "[" << mgz->type << " vs " << str->type << "]" << std::endl;
+			/*std::cout << "[" << mgz->type << " vs " << str->type << "]" << std::endl;*/
 			mgz->exec(str);
 			/* основной цикл работы
 			   1. топ() магазина
@@ -434,5 +455,5 @@ public:
 	};
 	std::vector<Token*> get_ops() {
 		return OPS;
-	}
+	};
 };

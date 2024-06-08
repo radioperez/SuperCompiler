@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <iostream>
+#include "Tables.h"
 
 class Interpreter {
 	std::vector<Token*> ops;
@@ -14,7 +15,12 @@ public:
 		while (current < ops.size()) {
 			Token* curToken = peek(current);
 			if (curToken->type == "WORD") {
-
+				/* Проверяем сущестование в таблице Tables */
+				bool ExistCheck = (INTS.count(dynamic_cast<Word*>(curToken)->value) != FLOATS.count(dynamic_cast<Word*>(curToken)->value));
+				if (!ExistCheck) std::cout << "Several vars with same name";
+				else {
+					magazine.push(curToken);
+				}
 			}
 			else if (curToken->type == "NUM" || curToken->type == "FRAC") {
 				magazine.push(curToken);
@@ -22,12 +28,13 @@ public:
 			else if (curToken->type == "+") {
 				Token* right = magazine.top(); magazine.pop();
 				Token* left = magazine.top(); magazine.pop();
-				if (right->type != left->type) std::cout << "TYPE MISMATCH";
-				else if (right->type == "NUM") {
+				std::cout << *left << curToken->type << *right << std::endl;
+
+				if (left->type == "NUM") {
 					int result = dynamic_cast<Number*>(left)->value + dynamic_cast<Number*>(right)->value;
 					magazine.push(new Number(result));
 				}
-				else if (right->type == "FRAC") {
+				else {
 					float result = dynamic_cast<FractialNumber*>(left)->value + dynamic_cast<FractialNumber*>(right)->value;
 					magazine.push(new FractialNumber(result));
 				}
@@ -35,12 +42,13 @@ public:
 			else if (curToken->type == "-") {
 				Token* right = magazine.top(); magazine.pop();
 				Token* left = magazine.top(); magazine.pop();
-				if (right->type != left->type) std::cout << "TYPE MISMATCH";
-				else if (right->type == "NUM") {
+				std::cout << *left << curToken->type << *right << std::endl;
+
+				if (left->type == "NUM") {
 					int result = dynamic_cast<Number*>(left)->value - dynamic_cast<Number*>(right)->value;
 					magazine.push(new Number(result));
 				}
-				else if (right->type == "FRAC") {
+				else {
 					float result = dynamic_cast<FractialNumber*>(left)->value - dynamic_cast<FractialNumber*>(right)->value;
 					magazine.push(new FractialNumber(result));
 				}
@@ -48,12 +56,13 @@ public:
 			else if (curToken->type == "*") {
 				Token* right = magazine.top(); magazine.pop();
 				Token* left = magazine.top(); magazine.pop();
-				if (right->type != left->type) std::cout << "TYPE MISMATCH";
-				else if (right->type == "NUM") {
+				std::cout << *left << curToken->type << *right << std::endl;
+
+				if (left->type == "NUM") {
 					int result = dynamic_cast<Number*>(left)->value * dynamic_cast<Number*>(right)->value;
 					magazine.push(new Number(result));
 				}
-				else if (right->type == "FRAC") {
+				else {
 					float result = dynamic_cast<FractialNumber*>(left)->value * dynamic_cast<FractialNumber*>(right)->value;
 					magazine.push(new FractialNumber(result));
 				}
@@ -61,14 +70,26 @@ public:
 			else if (curToken->type == "/") {
 				Token* right = magazine.top(); magazine.pop();
 				Token* left = magazine.top(); magazine.pop();
-				if (right->type != left->type) std::cout << "TYPE MISMATCH";
-				else if (right->type == "NUM") {
+				std::cout << *left << curToken->type << *right << std::endl;
+
+				if (left->type == "NUM") {
 					int result = dynamic_cast<Number*>(left)->value / dynamic_cast<Number*>(right)->value;
 					magazine.push(new Number(result));
 				}
-				else if (right->type == "FRAC") {
+				else {
 					float result = dynamic_cast<FractialNumber*>(left)->value / dynamic_cast<FractialNumber*>(right)->value;
 					magazine.push(new FractialNumber(result));
+				}
+			}
+			else if (curToken->type == ":=") {
+				Token* right = magazine.top(); magazine.pop();
+				Token* left = magazine.top(); magazine.pop();
+
+				if (INTS.count(dynamic_cast<Word*>(left)->value) == 1) {
+					INTS[dynamic_cast<Word*>(left)->value] = dynamic_cast<Number*>(right)->value;
+				}
+				else {
+					FLOATS[dynamic_cast<Word*>(left)->value] = dynamic_cast<FractialNumber*>(right)->value;
 				}
 			}
 			current++;

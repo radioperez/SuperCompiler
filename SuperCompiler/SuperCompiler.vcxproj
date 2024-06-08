@@ -134,6 +134,7 @@
     <Text Include="input2.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tables.h" />
     <ClInclude Include="Interpreter.h" />
     <ClInclude Include="ParserExtend.h" />
     <ClInclude Include="TokenExtend.h" />
