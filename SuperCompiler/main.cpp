@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Lexer.h"
 #include "ParserExtend.h"
+#include "Interpreter.h"
 
 int main() {
     // Чтение кода из файла, чтобы во время тестирования не нужно было перекомпилировать
@@ -25,5 +26,7 @@ int main() {
     for (auto el : ops) {
         std::cout << *el << ' ';
     }
+
+    Interpreter inter(ops);
     return 0;
 }
